@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: pink;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .back {
+            background-color: white;
+            width: 500px;
+            height: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 50px;
+        }
+        textarea {
+            margin-top: 50px;
+            margin-bottom: 20px;
+            width: 350px;
+            height: 200px;
+        }
+    </style>
+    <script>
+        function addItem() {
+            var newItem = document.createElement('div');
+            newItem.innerHTML = document.getElementById('ToDo').value;
+            document.getElementById('list').appendChild(newItem);
+            newItem.onclick = saveItem;
+            document.getElementById('list').appendChild(newItem);
+            saveItem();
+        }
+        function removeItem() {
+            document.getElementById('list').removeChild(this);
+            saveItem();
+        }
+        function saveItem() {
+            localStorage.storedList = document.getElementById('list').innerHTML;
+        }
+        function loadItem() {
+            document.getElementById('list').innerHTML = localStorage.storedList;
+            for (var i=0; i<list.children.length; i++) {
+                list.children[i].onclick = removeItem;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>My Page에 오신 것을 환영합니다!</h1>
+    <p>방명록을 작성해주세요</p>
+    <div class="back">
+        <textarea name="" id="ToDo" cols="50" rows="10"></textarea>
+        <input type="button" value="입력" onclick="addItem();">
+        <div id="list"></div>
+        <script>
+            if(localStorage.storedList) {
+                loadItem();
+            }
+        </script>
+    </div>
+</body>
+</html>
